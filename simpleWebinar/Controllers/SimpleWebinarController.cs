@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace simpleWebinar.Controllers
 {
-    [Route("api/samples")]
+    [Route("api/simplewebinar")]
     [ApiController]
-    public class SampleController : ControllerBase
+    public class SimpleWebinarController : ControllerBase
     {
         private readonly IDbService _context;
-        public SampleController(IDbService context)
+        public SimpleWebinarController(IDbService context)
         {
             _context = context;
         }

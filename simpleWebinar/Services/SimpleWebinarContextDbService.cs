@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace simpleWebinar.Services
 {
-    public class SampleContextDbService : IDbService
+    public class SimpleWebinarContextDbService : IDbService
     {
-        private readonly SampleDbContext _context;
-        public SampleContextDbService(SampleDbContext context)
+        private readonly SimpleWebinarDbContext _context;
+        public SimpleWebinarContextDbService(SimpleWebinarDbContext context)
         {
             _context = context;
         }

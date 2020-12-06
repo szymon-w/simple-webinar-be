@@ -28,10 +28,10 @@ namespace simpleWebinar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IDbService, SampleContextDbService>();
-            services.AddDbContext<SampleDbContext>(options =>
+            services.AddTransient<IDbService, SimpleWebinarContextDbService>();
+            services.AddDbContext<SimpleWebinarDbContext>(options =>
             {
-                options.UseSqlServer("Server=DESKTOP-4S302R6\\SQLEXPRESS;Database=APBD_kolokwium2;Trusted_Connection=True");
+                options.UseSqlServer("Server=DESKTOP-4S302R6\\SQLEXPRESS;Database=SimpleWebinar;Trusted_Connection=True");
             });
             services.AddControllers();
         }

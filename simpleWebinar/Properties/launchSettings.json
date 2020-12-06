@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/samples",
+      "launchUrl": "api/simplewebinar",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "simpleWebinar": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/samples",
+      "launchUrl": "api/simplewebinar",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
