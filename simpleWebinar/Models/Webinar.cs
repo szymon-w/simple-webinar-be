@@ -1,5 +1,4 @@
-﻿using Foolproof;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,10 +13,13 @@ namespace simpleWebinar.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdWebinar { get; set; }
         [Required]
+        [RegularExpression("^([A-Z]|[0-9]){5}$")]
+        [MaxLength(5)]
+        public string Code { get; set; }
+        [Required]
         public string Topic { get; set; }
         public DateTime Date { get; set; }
         public DateTime StartTime { get; set; }
-        [GreaterThan("StartTime")]
         public DateTime EndTime { get; set; }
 
         [ForeignKey("User")]

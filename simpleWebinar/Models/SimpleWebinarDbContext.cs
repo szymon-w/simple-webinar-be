@@ -8,9 +8,9 @@ namespace simpleWebinar.Models
 {
     public class SimpleWebinarDbContext : DbContext
     {
-        public DbSet<User> User { get; set; }
-        public DbSet<Webinar> Webinar { get; set; }
-        public DbSet<UserWebinar> UserWebinar { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Webinar> Webinars { get; set; }
+        public DbSet<UserWebinar> UserWebinars { get; set; }
 
         public SimpleWebinarDbContext()
         {
@@ -25,6 +25,13 @@ namespace simpleWebinar.Models
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Login)
                 .IsUnique();
+
+            modelBuilder.Entity<Webinar>()
+                .HasIndex(u => u.Code)
+                .IsUnique();
+
+            modelBuilder.Entity<UserWebinar>()
+              .HasIndex(p => new { p.IdUser, p.IdWebinar }).IsUnique();
         }
 
     }

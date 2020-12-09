@@ -21,7 +21,7 @@ namespace simpleWebinar.Models
         public string Email { get; set; }
         [Required]
         [MinLength(8)]
-        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}).*$")]
         public string Password { get; set; }
         public Boolean IsTeacher { get; set; }
         public Boolean IsAdmin { get; set; }

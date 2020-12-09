@@ -11,10 +11,11 @@
     <Compile Remove="Migrations\20201206170334_references.Designer.cs" />
     <Compile Remove="Migrations\20201206170735_referencesPartTwo.cs" />
     <Compile Remove="Migrations\20201206170735_referencesPartTwo.Designer.cs" />
+    <Compile Remove="Migrations\20201207162751_NameAdjustments2.cs" />
+    <Compile Remove="Migrations\20201207162751_NameAdjustments2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Foolproof" Version="0.9.4518" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
@@ -29,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
+    <Folder Include="DTO\Responses\" />
   </ItemGroup>
 
 

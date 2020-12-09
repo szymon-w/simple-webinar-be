@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using simpleWebinar.Models;
 
 namespace simpleWebinar.Migrations
 {
     [DbContext(typeof(SimpleWebinarDbContext))]
-    partial class SimpleWebinarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207163034_NameAdjustments2")]
+    partial class NameAdjustments2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

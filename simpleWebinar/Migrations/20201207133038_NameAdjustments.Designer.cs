@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using simpleWebinar.Models;
 
 namespace simpleWebinar.Migrations
 {
     [DbContext(typeof(SimpleWebinarDbContext))]
-    partial class SimpleWebinarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207133038_NameAdjustments")]
+    partial class NameAdjustments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,11 +93,6 @@ namespace simpleWebinar.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -112,12 +109,17 @@ namespace simpleWebinar.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WebinarCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
                     b.HasKey("IdWebinar");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
-
                     b.HasIndex("IdUser");
+
+                    b.HasIndex("WebinarCode")
+                        .IsUnique();
 
                     b.ToTable("Webinars");
                 });

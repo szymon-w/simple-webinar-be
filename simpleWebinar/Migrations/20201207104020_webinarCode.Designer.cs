@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using simpleWebinar.Models;
 
 namespace simpleWebinar.Migrations
 {
     [DbContext(typeof(SimpleWebinarDbContext))]
-    partial class SimpleWebinarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207104020_webinarCode")]
+    partial class webinarCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,7 @@ namespace simpleWebinar.Migrations
                     b.HasIndex("Login")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("simpleWebinar.Models.UserWebinar", b =>
@@ -76,12 +78,11 @@ namespace simpleWebinar.Migrations
 
                     b.HasKey("IdUserWebinar");
 
+                    b.HasIndex("IdUser");
+
                     b.HasIndex("IdWebinar");
 
-                    b.HasIndex("IdUser", "IdWebinar")
-                        .IsUnique();
-
-                    b.ToTable("UserWebinars");
+                    b.ToTable("UserWebinar");
                 });
 
             modelBuilder.Entity("simpleWebinar.Models.Webinar", b =>
@@ -90,11 +91,6 @@ namespace simpleWebinar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -112,14 +108,18 @@ namespace simpleWebinar.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdWebinar");
+                    b.Property<string>("WebinarCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
+                    b.HasKey("IdWebinar");
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("Webinars");
+                    b.HasIndex("WebinarCode")
+                        .IsUnique();
+
+                    b.ToTable("Webinar");
                 });
 
             modelBuilder.Entity("simpleWebinar.Models.UserWebinar", b =>
