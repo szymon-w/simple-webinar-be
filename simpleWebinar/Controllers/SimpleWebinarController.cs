@@ -7,6 +7,7 @@ using simpleWebinar.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using simpleWebinar.DTO.Requests;
+using simpleWebinar.DTO.Responses;
 
 namespace simpleWebinar.Controllers
 {
@@ -43,6 +44,28 @@ namespace simpleWebinar.Controllers
         }
 
 
+        [HttpPut("users/{login}")]
+        public IActionResult EditUser(EditUserRequest request, string login)
+        {
+            _context.EditUser(request, login);
+            return Ok("User was succesfully modified");
+        }
+
+        [HttpGet("users")]
+        public IActionResult GetUser()
+        {
+            var userListResponse = _context.GetUsers();
+            return Ok(userListResponse);
+        }
+
+        [HttpGet("users/{login}")]
+        public IActionResult GetUser(string login)
+        {
+            var userResponse = _context.GetUser(login);
+            return Ok(userResponse);
+        }
+
+
 
 
         [HttpPost("webinars")]
@@ -53,11 +76,62 @@ namespace simpleWebinar.Controllers
         }
 
         [HttpDelete("webinars/{code}")]
-        public IActionResult DeleteWebinar(string code)
+        public IActionResult DeleteWebinar(DeleteWebinarRequest request, string code)
         {
-            _context.DeleteWebinar(code);
+            _context.DeleteWebinar(request, code);
             return Ok("Webinar was successfully deleted!");
         }
+
+        [HttpPut("webinars/{code}")]
+        public IActionResult EditWebinar(EditWebinarRequest request, string code)
+        {
+            _context.EditWebinar(request, code);
+            return Ok("Webinar was succesfully modified");
+        }
+
+        [HttpGet("webinars/{code}")]
+        public IActionResult GetWebinar(GetWebinarRequest request, string code)
+        {
+            var webinarResponse = _context.GetWebinar(request, code);
+            return Ok(webinarResponse);
+        }
+
+        [HttpGet("webinars/future")]
+        public IActionResult GetPlannedWebinars(GetWebinarsRequest request)
+        {
+            var webinarResponse = _context.GetWebinars(request, null, false, 0);
+            return Ok(webinarResponse);
+        }
+
+        [HttpGet("webinars/future/{teacherCode}")]
+        public IActionResult GetPlannedWebinarsByTeacher(GetWebinarsRequest request, string teacherCode)
+        {
+            var webinarResponse = _context.GetWebinars(request, teacherCode, false, 0);
+            return Ok(webinarResponse);
+        }
+
+        [HttpGet("webinars/past/{teacherCode}")]
+        public IActionResult GetFinishedWebinarsByTeacher(GetWebinarsRequest request, string teacherCode)
+        {
+            var webinarResponse = _context.GetWebinars(request, teacherCode, true, 0);
+            return Ok(webinarResponse);
+        }
+
+        [HttpGet("webinars/future/student")]
+        public IActionResult GetPlannedWebinarsByStudent(GetWebinarsRequest request)
+        {
+            var webinarResponse = _context.GetWebinars(request, null, false, 0);
+            return Ok(webinarResponse);
+        }
+
+        [HttpGet("webinars/past/student")]
+        public IActionResult GetFinishedWebinarsByStudent(GetWebinarsRequest request)
+        {
+            var webinarResponse = _context.GetWebinars(request, null, true, 0);
+            return Ok(webinarResponse);
+        }
+
+
 
 
         [HttpPost("participations/{code}")]
@@ -74,6 +148,12 @@ namespace simpleWebinar.Controllers
             return Ok("You were successfully signed out!");
         }
 
+        [HttpPut("participations/{code}")]
+        public IActionResult NoteWebinar(EditParticipationRequest request, string code)
+        {
+            _context.EditParticipation(request, code);
+            return Ok("Webinar was succesfully noted!");
+        }
 
 
 

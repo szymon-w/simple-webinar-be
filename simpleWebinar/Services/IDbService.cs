@@ -1,4 +1,5 @@
 ﻿using simpleWebinar.DTO.Requests;
+using simpleWebinar.DTO.Responses;
 //using simpleWebinar.DTO.Responses;
 using simpleWebinar.Models;
 using System;
@@ -15,8 +16,15 @@ namespace simpleWebinar.Services
         public Webinar CreateWebinar(CreateWebinarRequest request);
         public UserWebinar SignUpToWebinar(AddParticipationRequest request, string code);
         public void DeleteUser(string login);
-        public void DeleteWebinar(string code);
+        public void DeleteWebinar(DeleteWebinarRequest request, string code);
         public void DeleteParticipation(DeleteParticipationRequest request, string code);
+        public void EditUser(EditUserRequest request, string login);
+        public void EditWebinar(EditWebinarRequest request, string code);
+        public void EditParticipation(EditParticipationRequest request, string code);
+        public UserResponse GetUser(string login);
+        public WebinarResponse GetWebinar(GetWebinarRequest request, string code);
+        public List<UserFromListResponse> GetUsers();
+        public List<WebinarFromListResponse> GetWebinars(GetWebinarsRequest request, string TeacherLogin, Boolean finished, int number);
 
 
     }

@@ -134,12 +134,12 @@ namespace simpleWebinar.Middlewares
             }
 
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            if (exception is RemoveDoneWebinarException)
+            if (exception is DoneWebinarException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Can't delete webinar which already has finished!"
+                    Message = "Can't edit or delete webinar which already has finished!"
                 }.ToString());
             }
 
@@ -152,6 +152,27 @@ namespace simpleWebinar.Middlewares
                 {
                     StatusCode = context.Response.StatusCode,
                     Message = "Can't sign up to webinar which already has finished!"
+                }.ToString());
+            }
+
+            
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            if (exception is WebinarNotHostedByGivenUserException)
+            {
+                return context.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = "Can't edit or delete webinar which is not hosted by you!"
+                }.ToString());
+            }
+
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            if (exception is NotFinishedWebinarException)
+            {
+                return context.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = "Can't note unfinished webinar!"
                 }.ToString());
             }
 
