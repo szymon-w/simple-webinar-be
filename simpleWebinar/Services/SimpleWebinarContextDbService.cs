@@ -173,7 +173,7 @@ namespace simpleWebinar.Services
             _context.SaveChanges();
         }
 
-        public List<WebinarFromListResponse> GetWebinars (GetWebinarsRequest request, string TeacherLogin, Boolean finished, int number)
+        public List<WebinarFromListResponse> GetWebinars (GetWebinarsRequest request, string TeacherLogin, Boolean finished)
         {
             User user=null;
             if (!(request.Login == null))
@@ -211,7 +211,12 @@ namespace simpleWebinar.Services
                     where UserWebinar.IdUser==idStudent 
                     select Webinar;
             }
-            
+
+            if(finished)
+                webinars = webinars.OrderByDescending(x => x.Date).Take(request.Number);
+            else
+                webinars = webinars.OrderBy(x => x.Date).Take(request.Number);
+
             var webinarList = webinars.ToList();
             var webinarsReponse = new List<WebinarFromListResponse>();
             foreach (Webinar w in webinarList)

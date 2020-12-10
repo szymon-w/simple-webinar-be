@@ -24,7 +24,7 @@ namespace simpleWebinar.Services
         public UserResponse GetUser(string login);
         public WebinarResponse GetWebinar(GetWebinarRequest request, string code);
         public List<UserFromListResponse> GetUsers();
-        public List<WebinarFromListResponse> GetWebinars(GetWebinarsRequest request, string TeacherLogin, Boolean finished, int number);
+        public List<WebinarFromListResponse> GetWebinars(GetWebinarsRequest request, string TeacherLogin, Boolean finished);
 
 
     }
