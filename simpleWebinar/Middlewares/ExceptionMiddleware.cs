@@ -63,7 +63,7 @@ namespace simpleWebinar.Middlewares
                 }.ToString());
             }
 
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             if (exception is UserNotExistException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()
@@ -83,7 +83,7 @@ namespace simpleWebinar.Middlewares
                 }.ToString());
             }
 
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             if (exception is ParticipationNotExistException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()
@@ -93,7 +93,7 @@ namespace simpleWebinar.Middlewares
                 }.ToString());
             }
 
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             if (exception is WebinarNotExistException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()
@@ -123,7 +123,7 @@ namespace simpleWebinar.Middlewares
                 }.ToString());
             }
 
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             if (exception is NotSignedUpToWebinarException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()

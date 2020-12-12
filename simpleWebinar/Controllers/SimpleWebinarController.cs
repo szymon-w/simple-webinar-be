@@ -13,6 +13,7 @@ namespace simpleWebinar.Controllers
 {
     [Route("api/simplewebinar")]
     [ApiController]
+    
     public class SimpleWebinarController : ControllerBase
     {
         private readonly IDbService _context;
@@ -31,6 +32,7 @@ namespace simpleWebinar.Controllers
         [HttpPost("signup")]
         public IActionResult SingUp(SignupRequest request)
         {
+            Console.WriteLine(request.Login+" "+request.Password);
             User user = _context.SignUp(request);
             return Created("You signed up successfully", user);
         }
