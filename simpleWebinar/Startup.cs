@@ -33,6 +33,11 @@ namespace simpleWebinar
             {
                 options.UseSqlServer("Server=DESKTOP-4S302R6\\SQLEXPRESS;Database=SimpleWebinar;Trusted_Connection=True");
             });
+            services.AddCors(options=>
+            {
+                options.AddPolicy(name: "AllowAllOrigins",
+                     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
             services.AddControllers();
         }
 
@@ -46,7 +51,7 @@ namespace simpleWebinar
 
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseRouting();
-
+            app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
