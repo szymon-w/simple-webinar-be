@@ -40,7 +40,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Login is already taken"
+                    ErrorMessage = "Login is already taken"
                 }.ToString());
             }
 
@@ -49,7 +49,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Two given password do not match each other!"
+                    ErrorMessage = "Two given password do not match each other!"
                 }.ToString());
             }
 
@@ -59,7 +59,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Code is already taken!"
+                    ErrorMessage = "Code is already taken!"
                 }.ToString());
             }
 
@@ -69,7 +69,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Given login does not exist!"
+                    ErrorMessage = "Given login does not exist!"
                 }.ToString());
             }
 
@@ -79,7 +79,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Webinar's end has to be later than its start!"
+                    ErrorMessage = "Webinar's end has to be later than its start!"
                 }.ToString());
             }
 
@@ -89,7 +89,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "You are not signed up to this webinar!"
+                    ErrorMessage = "You are not signed up to this webinar!"
                 }.ToString());
             }
 
@@ -99,7 +99,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Given Webinar does not exist!"
+                    ErrorMessage = "Given Webinar does not exist!"
                 }.ToString());
             }
 
@@ -109,7 +109,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "You are already signed up to this webinar!"
+                    ErrorMessage = "You are already signed up to this webinar!"
                 }.ToString());
             }
 
@@ -119,7 +119,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Webinars hosted by this user exist! Remove all webinars hosted by this user before!"
+                    ErrorMessage = "Webinars hosted by this user exist! Remove all webinars hosted by this user before!"
                 }.ToString());
             }
 
@@ -129,7 +129,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "You are not signed to this webinar!"
+                    ErrorMessage = "You are not signed to this webinar!"
                 }.ToString());
             }
 
@@ -139,7 +139,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Can't edit or delete webinar which already has finished!"
+                    ErrorMessage = "Can't edit or delete webinar which already has finished!"
                 }.ToString());
             }
 
@@ -151,7 +151,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Can't sign up to webinar which already has finished!"
+                    ErrorMessage = "Can't sign up to webinar which already has finished!"
                 }.ToString());
             }
 
@@ -162,7 +162,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Can't edit or delete webinar which is not hosted by you!"
+                    ErrorMessage = "Can't edit or delete webinar which is not hosted by you!"
                 }.ToString());
             }
 
@@ -172,7 +172,7 @@ namespace simpleWebinar.Middlewares
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Can't note unfinished webinar!"
+                    ErrorMessage = "Can't note unfinished webinar!"
                 }.ToString());
             }
 
@@ -190,7 +190,7 @@ namespace simpleWebinar.Middlewares
             return context.Response.WriteAsync(new ErrorDetails()
             {
                 StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error from the custom middleware."
+                ErrorMessage = "Internal Server Error from the custom middleware."
             }.ToString());
         }
     }

@@ -26,7 +26,7 @@ namespace simpleWebinar.Controllers
         public IActionResult AddUser(CreateUserRequest request)
         {
             User user = _context.AddUser(request);
-            return Created("User was succesfully created", user);
+            return Created("", "User was succesfully created");
         }
 
         [HttpPost("signup")]
@@ -35,7 +35,7 @@ namespace simpleWebinar.Controllers
         {
             Console.WriteLine(request.Login+" "+request.Password);
             User user = _context.SignUp(request);
-            return Created("You signed up successfully", user);
+            return Created("", "You signed up successfully");
         }
 
 
@@ -75,7 +75,7 @@ namespace simpleWebinar.Controllers
         public IActionResult CreateWebinar(CreateWebinarRequest request)
         {
             Webinar webinar = _context.CreateWebinar(request);
-            return Created("Webinar was successfully created", null);
+            return Created("", "Webinar was successfully created");
         }
 
         [HttpDelete("webinars/{code}")]
@@ -141,7 +141,7 @@ namespace simpleWebinar.Controllers
         public IActionResult SignUpToWebinar(AddParticipationRequest request, string code)
         {
             UserWebinar participation = _context.SignUpToWebinar(request, code);
-            return Created("You signed up to webinar successfully", null);
+            return Created("", "You signed up to webinar successfully");
         }
 
         [HttpDelete("participations/{code}")]
