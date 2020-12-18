@@ -160,5 +160,15 @@ namespace simpleWebinar.Controllers
 
 
 
+
+        [HttpPost("messages")]
+        public IActionResult CreateMessage(CreateContactMessageRequest request)
+        {
+            ContactMessage webinar = _context.CreateContactMessage(request);
+            return Created("", "Message was successfully sent");
+        }
+
+
+
     }
 }

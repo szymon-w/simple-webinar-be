@@ -11,6 +11,8 @@ namespace simpleWebinar.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Webinar> Webinars { get; set; }
         public DbSet<UserWebinar> UserWebinars { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
 
         public SimpleWebinarDbContext()
         {

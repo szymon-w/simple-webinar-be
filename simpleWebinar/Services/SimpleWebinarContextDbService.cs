@@ -370,6 +370,26 @@ namespace simpleWebinar.Services
 
 
 
+        public ContactMessage CreateContactMessage(CreateContactMessageRequest request)
+        {
+  
+            ContactMessage contactMessage;
+            _context.ContactMessages.Add(contactMessage = new ContactMessage
+            {
+                Message = request.Message,
+                Email = request.Email,
+            });
+            _context.SaveChanges();
+            return contactMessage;
+        }
+
+
+
+
+
+
+
+
 
         private Boolean ParticipationExists(int IdUser, int IdWebinar)
         {
