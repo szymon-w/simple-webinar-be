@@ -9,7 +9,7 @@ namespace simpleWebinar.DTO.Responses
     {
         public string Topic { get; set; }
         public string Teacher { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Code { get; set; }
     }
 }

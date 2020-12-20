@@ -93,44 +93,52 @@ namespace simpleWebinar.Controllers
         }
 
         [HttpGet("webinars/{code}")]
-        public IActionResult GetWebinar(GetWebinarRequest request, string code)
+        public IActionResult GetWebinar(string code)
         {
-            var webinarResponse = _context.GetWebinar(request, code);
+            var webinarResponse = _context.GetWebinar(null, code);
             return Ok(webinarResponse);
         }
 
-        [HttpGet("webinars/future")]
-        public IActionResult GetPlannedWebinars(GetWebinarsRequest request)
+        [HttpGet("webinars/{code}/{studentLogin}")]
+        public IActionResult GetWebinarWithStudentInfo(string code, string studentLogin)
         {
-            var webinarResponse = _context.GetWebinars(request, null, false);
+            var webinarResponse = _context.GetWebinar(studentLogin, code);
+            return Ok(webinarResponse);
+        }
+
+
+        [HttpGet("webinars/future")]
+        public IActionResult GetPlannedWebinars()
+        {
+            var webinarResponse = _context.GetWebinars(null, null, false);
             return Ok(webinarResponse);
         }
 
         [HttpGet("webinars/future/{teacherCode}")]
-        public IActionResult GetPlannedWebinarsByTeacher(GetWebinarsRequest request, string teacherCode)
+        public IActionResult GetPlannedWebinarsByTeacher(string teacherCode)
         {
-            var webinarResponse = _context.GetWebinars(request, teacherCode, false);
+            var webinarResponse = _context.GetWebinars(null, teacherCode, false);
             return Ok(webinarResponse);
         }
 
         [HttpGet("webinars/past/{teacherCode}")]
-        public IActionResult GetFinishedWebinarsByTeacher(GetWebinarsRequest request, string teacherCode)
+        public IActionResult GetFinishedWebinarsByTeacher(string teacherCode)
         {
-            var webinarResponse = _context.GetWebinars(request, teacherCode, true);
+            var webinarResponse = _context.GetWebinars(null, teacherCode, true);
             return Ok(webinarResponse);
         }
 
-        [HttpGet("webinars/future/student")]
-        public IActionResult GetPlannedWebinarsByStudent(GetWebinarsRequest request)
+        [HttpGet("webinars/future/student/{studentLogin}")]
+        public IActionResult GetPlannedWebinarsByStudent(string studentLogin)
         {
-            var webinarResponse = _context.GetWebinars(request, null, false);
+            var webinarResponse = _context.GetWebinars(studentLogin, null, false);
             return Ok(webinarResponse);
         }
 
-        [HttpGet("webinars/past/student")]
-        public IActionResult GetFinishedWebinarsByStudent(GetWebinarsRequest request)
+        [HttpGet("webinars/past/student/{studentLogin}")]
+        public IActionResult GetFinishedWebinarsByStudent(string studentLogin)
         {
-            var webinarResponse = _context.GetWebinars(request, null, true);
+            var webinarResponse = _context.GetWebinars(studentLogin, null, true);
             return Ok(webinarResponse);
         }
 

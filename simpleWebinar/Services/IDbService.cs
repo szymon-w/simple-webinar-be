@@ -22,9 +22,9 @@ namespace simpleWebinar.Services
         public void EditWebinar(EditWebinarRequest request, string code);
         public void EditParticipation(EditParticipationRequest request, string code);
         public UserResponse GetUser(string login);
-        public WebinarResponse GetWebinar(GetWebinarRequest request, string code);
+        public WebinarResponse GetWebinar(string studentLogin, string code);
         public List<UserFromListResponse> GetUsers();
-        public List<WebinarFromListResponse> GetWebinars(GetWebinarsRequest request, string TeacherLogin, Boolean finished);
+        public List<WebinarFromListResponse> GetWebinars(string studentLogin, string teacherLogin, Boolean finished);
         public ContactMessage CreateContactMessage(CreateContactMessageRequest request);
 
 

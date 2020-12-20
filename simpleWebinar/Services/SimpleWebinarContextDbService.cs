@@ -173,22 +173,25 @@ namespace simpleWebinar.Services
             _context.SaveChanges();
         }
 
-        public List<WebinarFromListResponse> GetWebinars (GetWebinarsRequest request, string TeacherLogin, Boolean finished)
+        public List<WebinarFromListResponse> GetWebinars (string studentLogin, string teacherLogin, Boolean finished)
         {
+            //odgórnie ustalony limit zwracanych wierszy
+            int number = 100;
+            
             User user=null;
-            if (!(request.Login == null))
+            if (!(studentLogin == null))
             {
-                if (!UserExists(request.Login))
+                if (!UserExists(studentLogin))
                     throw new UserNotExistException("");
-                user = _context.Users.Where(x => x.Login == request.Login).FirstOrDefault();
+                user = _context.Users.Where(x => x.Login == studentLogin).FirstOrDefault();
             }
 
             User teacher=null;
-            if (!(TeacherLogin == null))
+            if (!(teacherLogin == null))
             {
-                if (!UserExists(TeacherLogin))
+                if (!UserExists(teacherLogin))
                     throw new UserNotExistException("");
-                teacher = _context.Users.Where(x => x.Login == TeacherLogin).FirstOrDefault();
+                teacher = _context.Users.Where(x => x.Login == teacherLogin).FirstOrDefault();
             }
             
             
@@ -198,13 +201,13 @@ namespace simpleWebinar.Services
             else
                 webinars = _context.Webinars.Where(x => x.Date > DateTime.Now);
 
-            if (TeacherLogin != null)
+            if (teacherLogin != null)
                 webinars = webinars
-                  .Where(x => x.IdUser == getIdUserByLogin(TeacherLogin));
+                  .Where(x => x.IdUser == getIdUserByLogin(teacherLogin));
 
-            if (request.Login != null)
+            if (studentLogin != null)
             {
-                int idStudent = getIdUserByLogin(request.Login);
+                int idStudent = getIdUserByLogin(studentLogin);
                 webinars =
                     from UserWebinar in _context.UserWebinars
                     join Webinar in webinars on UserWebinar.IdWebinar equals Webinar.IdWebinar
@@ -213,9 +216,9 @@ namespace simpleWebinar.Services
             }
 
             if(finished)
-                webinars = webinars.OrderByDescending(x => x.Date).Take(request.Number);
+                webinars = webinars.OrderByDescending(x => x.Date).Take(number);
             else
-                webinars = webinars.OrderBy(x => x.Date).Take(request.Number);
+                webinars = webinars.OrderBy(x => x.Date).Take(number);
 
             var webinarList = webinars.ToList();
             var webinarsReponse = new List<WebinarFromListResponse>();
@@ -225,7 +228,7 @@ namespace simpleWebinar.Services
                 webinarsReponse.Add(new WebinarFromListResponse
                 {
                     Code = w.Code,
-                    Date = w.Date,
+                    Date = w.Date.ToString("yyyy-MM-dd"),
                     Teacher = _context.Users.Where(x=>x.IdUser==w.IdUser).FirstOrDefault().Surname
                         + " " + _context.Users.Where(x=>x.IdUser==w.IdUser).FirstOrDefault().Name,
                     Topic = w.Topic
@@ -234,18 +237,18 @@ namespace simpleWebinar.Services
             return webinarsReponse;
         }
 
-        public WebinarResponse GetWebinar(GetWebinarRequest request, string code)
+        public WebinarResponse GetWebinar(string studentLogin, string code)
         {
             if (!WebinarExists(code))
                 throw new WebinarNotExistException("");
             Webinar webinar = _context.Webinars.Where(x => x.Code == code).FirstOrDefault();
 
             User user;
-            if (!(request.Login == null))
+            if (!(studentLogin == null))
             {
-                if (!UserExists(request.Login))
+                if (!UserExists(studentLogin))
                     throw new UserNotExistException("");
-                user = _context.Users.Where(x => x.Login == request.Login).FirstOrDefault();
+                user = _context.Users.Where(x => x.Login == studentLogin).FirstOrDefault();
             }
 
             int? idTeacher = _context.Webinars.Where(x => x.Code == code).FirstOrDefault().IdUser;
@@ -260,18 +263,23 @@ namespace simpleWebinar.Services
             int? note = null;
             Boolean isNotedByUser = false;
             Boolean isUserSignedUp = false;
-            if (ParticipationExists(getIdUserByLogin(request.Login), getIdWebinarByCode(code))) { 
-                participation = _context.UserWebinars.Where(x => x.IdUser == getIdUserByLogin(request.Login))
-                   .Where(x => x.IdWebinar == getIdWebinarByCode(code)).FirstOrDefault();
-                isUserSignedUp = true;
-                note = (int?)participation.Note;
-                if (note != null)
-                    isNotedByUser = true;
+            if (!(studentLogin == null))
+            {
+                if (ParticipationExists(getIdUserByLogin(studentLogin), getIdWebinarByCode(code)))
+                {
+                    participation = _context.UserWebinars.Where(x => x.IdUser == getIdUserByLogin(studentLogin))
+                       .Where(x => x.IdWebinar == getIdWebinarByCode(code)).FirstOrDefault();
+                    isUserSignedUp = true;
+                    note = (int?)participation.Note;
+                    if (note != null)
+                        isNotedByUser = true;
+                }
             }
-
             Boolean isUserATeacher = false;
-            if (idTeacher == getIdUserByLogin(request.Login))
-                isUserATeacher = true;
+            if (!(studentLogin == null)) {
+                if (idTeacher == getIdUserByLogin(studentLogin))
+                    isUserATeacher = true;
+            }
 
             Boolean isFinished = false;
             if (DateTime.Now > webinar.Date.AddDays(1))
@@ -282,9 +290,9 @@ namespace simpleWebinar.Services
             {
                 Topic=webinar.Topic,
                 Code=webinar.Code,
-                Date=webinar.Date,
-                Start=webinar.StartTime,
-                End=webinar.EndTime,
+                Date=webinar.Date.ToString("yyyy-MM-dd"),
+                Start=webinar.StartTime.ToString("hh:mm"),
+                End=webinar.EndTime.ToString("hh:mm"),
                 Teacher=teacher,
                 Note=note,
                 IsFinished=isFinished,
@@ -355,10 +363,13 @@ namespace simpleWebinar.Services
                 throw new NotSignedUpToWebinarException("");
             if (_context.Webinars.Where(x => x.Code == code).FirstOrDefault().Date > DateTime.Now)
                 throw new NotFinishedWebinarException("");
-
+            
             UserWebinar participation = _context.UserWebinars.
                 Where(x => x.IdUser == IdUser).
                 Where(x => x.IdWebinar == IdWebinar).FirstOrDefault();
+
+            if (participation.Note != null)
+                throw new AlreadyNotedWebinarException("");
 
             participation.Note = (UserWebinar.NoteName)request.Note;
             _context.SaveChanges();

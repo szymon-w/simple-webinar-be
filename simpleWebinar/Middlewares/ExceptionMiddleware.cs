@@ -114,6 +114,17 @@ namespace simpleWebinar.Middlewares
             }
 
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            if (exception is AlreadyNotedWebinarException)
+            {
+                return context.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = context.Response.StatusCode,
+                    ErrorMessage = "You have already noted this webinar!"
+                }.ToString());
+            }
+
+
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             if (exception is UnhostedWebinarsExistException)
             {
                 return context.Response.WriteAsync(new ErrorDetails()
