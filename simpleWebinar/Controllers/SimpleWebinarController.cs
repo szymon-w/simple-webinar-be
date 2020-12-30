@@ -33,7 +33,7 @@ namespace simpleWebinar.Controllers
 
         public IActionResult SingUp(SignupRequest request)
         {
-            Console.WriteLine(request.Login+" "+request.Password);
+            Console.WriteLine(request.Login + " " + request.Password);
             User user = _context.SignUp(request);
             return Created("", "You signed up successfully");
         }
@@ -176,6 +176,12 @@ namespace simpleWebinar.Controllers
             return Created("", "Message was successfully sent");
         }
 
+        [HttpPost("login/{login}")]
+        public IActionResult LogIn (LogInRequest request, string login)
+        {
+            var LogInResponse = _context.LogIn(request, login);
+            return Ok(LogInResponse);
+        }
 
 
     }

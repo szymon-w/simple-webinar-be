@@ -187,6 +187,17 @@ namespace simpleWebinar.Middlewares
                 }.ToString());
             }
 
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            if (exception is PasswordsNotMatchException)
+            {
+                return context.Response.WriteAsync(new ErrorDetails()
+                {
+                    StatusCode = context.Response.StatusCode,
+                    ErrorMessage = "Given password is incorrect!"
+                }.ToString());
+            }
+
+            
 
             /*if (exception is SampleException){
                 return context.Response.WriteAsync(new ErrorDetails()

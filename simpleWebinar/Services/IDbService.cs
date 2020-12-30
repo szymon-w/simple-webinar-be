@@ -26,8 +26,7 @@ namespace simpleWebinar.Services
         public List<UserFromListResponse> GetUsers();
         public List<WebinarFromListResponse> GetWebinars(string studentLogin, string teacherLogin, Boolean finished);
         public ContactMessage CreateContactMessage(CreateContactMessageRequest request);
-
-
+        public LogInResponse LogIn(LogInRequest request, string login);
 
     }
 }

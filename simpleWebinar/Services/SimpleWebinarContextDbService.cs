@@ -395,6 +395,26 @@ namespace simpleWebinar.Services
         }
 
 
+        public LogInResponse LogIn(LogInRequest request, string login)
+        {
+            int IdUser = getIdUserByLogin(login);
+            User user = _context.Users.Where(x => x.IdUser == IdUser).FirstOrDefault();
+            string dbPassword = user.Password;
+
+            if (dbPassword != request.Password)
+                throw new PasswordsNotMatchException("");
+
+            var response = new LogInResponse
+            {
+                Login = user.Login,
+                IsAdmin = user.IsAdmin,
+                IsTeacher = user.IsTeacher
+            };
+
+            return response;
+
+        }
+
 
 
 
